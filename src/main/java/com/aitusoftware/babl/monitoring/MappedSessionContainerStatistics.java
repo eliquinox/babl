@@ -47,6 +47,7 @@ public final class MappedSessionContainerStatistics extends SessionContainerStat
         final AtomicBuffer buffer,
         final int offset)
     {
+        buffer.verifyAlignment();
         this.buffer = buffer;
         this.offset = offset;
         bytesRead = bytesRead();
@@ -56,22 +57,26 @@ public final class MappedSessionContainerStatistics extends SessionContainerStat
     @Override
     public void heartbeat(final long timestamp)
     {
+        buffer.verifyAlignment();
         buffer.putLongOrdered(toOffset(ACTIVITY_TIMESTAMP_OFFSET), timestamp);
     }
 
     public long timestamp()
     {
+        buffer.verifyAlignment();
         return buffer.getLongVolatile(toOffset(ACTIVITY_TIMESTAMP_OFFSET));
     }
 
     @Override
     public void eventLoopDurationMs(final long eventLoopDurationMs)
     {
+        buffer.verifyAlignment();
         buffer.putLongOrdered(toOffset(MAX_EVENT_LOOP_DURATION_MS_OFFSET), eventLoopDurationMs);
     }
 
     public long maxEventLoopDurationMs()
     {
+        buffer.verifyAlignment();
         return buffer.getLongVolatile(toOffset(MAX_EVENT_LOOP_DURATION_MS_OFFSET));
     }
 
