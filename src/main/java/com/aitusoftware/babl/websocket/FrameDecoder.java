@@ -41,9 +41,7 @@ final class FrameDecoder
     private static final int NO_OP_CODE = -1;
     private static final int MINIMUM_PAYLOAD_SIZE = 2;
 
-    long p1, p2, p3, p4;
-
-    private final byte[] maskingKeyBytes = new byte[4];
+    private final byte[] maskingKeyBytes = new byte[]{0, 0, 0, 0};
     private final MutableDirectBuffer srcBuffer = new UnsafeBuffer();
     private final MutableDirectBuffer dstBuffer = new UnsafeBuffer();
     private final MessageReceiver messageReceiver;
