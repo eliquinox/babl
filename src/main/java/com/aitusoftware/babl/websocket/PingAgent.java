@@ -30,13 +30,14 @@ import org.agrona.concurrent.UnsafeBuffer;
 final class PingAgent
 {
     static final int MAX_PING_PAYLOAD_LENGTH = 125;
+    public static final int ALIGNMENT = 32;
 
     private final FrameEncoder frameEncoder;
     private final EpochClock clock;
     private final long pingIntervalMs;
     private final long pongResponseTimeoutMs;
-    private final MutableDirectBuffer pingPayloadBuffer = new UnsafeBuffer(new byte[BitUtil.SIZE_OF_LONG]);
-    private final MutableDirectBuffer pongPayloadBuffer = new UnsafeBuffer(new byte[MAX_PING_PAYLOAD_LENGTH]);
+    private final MutableDirectBuffer pingPayloadBuffer = new UnsafeBuffer(new byte[BitUtil.align(BitUtil.SIZE_OF_LONG, ALIGNMENT)]);
+    private final MutableDirectBuffer pongPayloadBuffer = new UnsafeBuffer(new byte[BitUtil.align(MAX_PING_PAYLOAD_LENGTH, ALIGNMENT)]);
     private final SessionDataListener sessionDataListener;
     private final PingPayloadSupplier pingPayloadSupplier;
     private long nextPingTimestampMs;
