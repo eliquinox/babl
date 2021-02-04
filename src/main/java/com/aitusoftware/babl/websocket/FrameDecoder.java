@@ -51,7 +51,7 @@ final class FrameDecoder
     private final SessionContainerStatistics sessionContainerStatistics;
     private final int internalBufferMaxCapacity;
     private final boolean requiresMasking;
-    private final byte[] maskingKeyBytes = ByteBuffer.allocate(4).array();
+    private final byte[] maskingKeyBytes = new UnsafeBuffer(new byte[4]).byteArray();
     private SessionStatistics sessionStatistics;
     private long maskingKey;
     private int dstOffset;
