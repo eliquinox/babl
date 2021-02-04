@@ -33,12 +33,16 @@ import com.aitusoftware.babl.user.ContentType;
 
 import org.agrona.BitUtil;
 import org.agrona.DirectBuffer;
-import org.agrona.ExpandableArrayBuffer;
 import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
+import org.graalvm.compiler.nodes.AbstractLocalNode;
 
 final class FrameEncoder
 {
+    public static final int ALIGNMENT = 32;
+    public static final int CLOSE_REASON_OFFSET = BitUtil.align(0, ALIGNMENT);
+    public static final int CLOSE_REASON_LENGTH = BitUtil.align(BitUtil.SIZE_OF_SHORT, ALIGNMENT);
+
     private final int frameHeaderLength;
     private final int maxFramePayloadSize;
     private final int sendBufferMaxSize;
@@ -47,7 +51,7 @@ final class FrameEncoder
     private final boolean shouldMask;
     private final int headerPadding;
     private final byte maskBitmask;
-    private final MutableDirectBuffer closeReasonBuffer = new ExpandableArrayBuffer();
+    private final MutableDirectBuffer closeReasonBuffer = new UnsafeBuffer(new byte[CLOSE_REASON_LENGTH], CLOSE_REASON_OFFSET, CLOSE_REASON_LENGTH);
     private final SessionContainerStatistics sessionContainerStatistics;
     private final SessionConfig sessionConfig;
     private SessionStatistics sessionStatistics;
