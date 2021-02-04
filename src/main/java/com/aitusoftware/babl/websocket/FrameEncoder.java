@@ -33,6 +33,7 @@ import com.aitusoftware.babl.user.ContentType;
 
 import org.agrona.BitUtil;
 import org.agrona.DirectBuffer;
+import org.agrona.ExpandableArrayBuffer;
 import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 
@@ -46,7 +47,7 @@ final class FrameEncoder
     private final boolean shouldMask;
     private final int headerPadding;
     private final byte maskBitmask;
-    private final MutableDirectBuffer closeReasonBuffer = new UnsafeBuffer(new byte[BitUtil.align(BitUtil.SIZE_OF_SHORT, 32)]);
+    private final MutableDirectBuffer closeReasonBuffer = new ExpandableArrayBuffer();
     private final SessionContainerStatistics sessionContainerStatistics;
     private final SessionConfig sessionConfig;
     private SessionStatistics sessionStatistics;
