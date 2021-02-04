@@ -29,8 +29,7 @@ public final class ServerMarkFile extends MarkFile
 {
     public static final int DATA_OFFSET = BitUtil.SIZE_OF_INT + BitUtil.SIZE_OF_LONG;
     public static final int DATA_LENGTH = BitUtil.align(MappedSessionContainerStatistics.LENGTH, 32);
-    public static final int ERROR_BUFFER_OFFSET = BitUtil.align(DATA_OFFSET + DATA_LENGTH,
-        BitUtil.CACHE_LINE_LENGTH);
+    public static final int ERROR_BUFFER_OFFSET = BitUtil.align(DATA_OFFSET + DATA_LENGTH, 32);
     public static final int ERROR_BUFFER_LENGTH = 65536;
     public static final String MARK_FILE_NAME = "babl-server.mark";
     private static final int TOTAL_LENGTH = ERROR_BUFFER_OFFSET + ERROR_BUFFER_LENGTH;
