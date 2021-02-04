@@ -47,7 +47,7 @@ final class FrameEncoder
     private final boolean shouldMask;
     private final int headerPadding;
     private final byte maskBitmask;
-    private final MutableDirectBuffer closeReasonBuffer = new UnsafeBuffer(ByteBuffer.allocate(BitUtil.align(1024, 32)));
+    private final MutableDirectBuffer closeReasonBuffer = new UnsafeBuffer(new byte[BitUtil.align(128, 32)]);
     private final SessionContainerStatistics sessionContainerStatistics;
     private final SessionConfig sessionConfig;
     private SessionStatistics sessionStatistics;
