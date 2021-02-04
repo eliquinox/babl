@@ -31,9 +31,7 @@ import com.aitusoftware.babl.monitoring.SessionStatistics;
 import com.aitusoftware.babl.pool.BufferPool;
 import com.aitusoftware.babl.user.ContentType;
 
-import org.agrona.BitUtil;
-import org.agrona.DirectBuffer;
-import org.agrona.MutableDirectBuffer;
+import org.agrona.*;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.graalvm.compiler.nodes.AbstractLocalNode;
 
@@ -47,7 +45,7 @@ final class FrameEncoder
     private final boolean shouldMask;
     private final int headerPadding;
     private final byte maskBitmask;
-    private final MutableDirectBuffer closeReasonBuffer = new UnsafeBuffer(new byte[BitUtil.align(128, 32)]);
+    private final MutableDirectBuffer closeReasonBuffer = new ExpandableDirectByteBuffer();
     private final SessionContainerStatistics sessionContainerStatistics;
     private final SessionConfig sessionConfig;
     private SessionStatistics sessionStatistics;
