@@ -23,6 +23,7 @@ import com.aitusoftware.babl.log.Logger;
 
 import org.agrona.BitUtil;
 import org.agrona.DirectBuffer;
+import org.agrona.ExpandableDirectByteBuffer;
 import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.EpochClock;
 import org.agrona.concurrent.UnsafeBuffer;
@@ -36,8 +37,8 @@ final class PingAgent
     private final EpochClock clock;
     private final long pingIntervalMs;
     private final long pongResponseTimeoutMs;
-    private final MutableDirectBuffer pingPayloadBuffer = new UnsafeBuffer(new byte[BitUtil.align(BitUtil.SIZE_OF_LONG, ALIGNMENT)]);
-    private final MutableDirectBuffer pongPayloadBuffer = new UnsafeBuffer(new byte[BitUtil.align(MAX_PING_PAYLOAD_LENGTH, ALIGNMENT)]);
+    private final MutableDirectBuffer pingPayloadBuffer = new ExpandableDirectByteBuffer();
+    private final MutableDirectBuffer pongPayloadBuffer = new ExpandableDirectByteBuffer();
     private final SessionDataListener sessionDataListener;
     private final PingPayloadSupplier pingPayloadSupplier;
     private long nextPingTimestampMs;
