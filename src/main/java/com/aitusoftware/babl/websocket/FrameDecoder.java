@@ -41,6 +41,7 @@ final class FrameDecoder
     private static final int NO_OP_CODE = -1;
     private static final int MINIMUM_PAYLOAD_SIZE = 2;
 
+    private final byte[] maskingKeyBytes = new byte[4];
     private final UnsafeBuffer srcBuffer = new UnsafeBuffer();
     private final UnsafeBuffer dstBuffer = new UnsafeBuffer();
     private final MessageReceiver messageReceiver;
@@ -51,7 +52,6 @@ final class FrameDecoder
     private final SessionContainerStatistics sessionContainerStatistics;
     private final int internalBufferMaxCapacity;
     private final boolean requiresMasking;
-    private final byte[] maskingKeyBytes = new UnsafeBuffer(new byte[4]).byteArray();
     private SessionStatistics sessionStatistics;
     private long maskingKey;
     private int dstOffset;
